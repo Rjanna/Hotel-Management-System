@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cc3_1b_carbonelrd_hms
+namespace HotelManagementSystem
 {
     enum RoomStyle
     {

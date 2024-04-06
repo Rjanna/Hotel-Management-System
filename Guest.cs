@@ -7,28 +7,25 @@ using System.Threading.Tasks;
 
 namespace HotelManagementSystem
 {
-    public class Guest : User
+   public class Guest: User
     {
-        public int TotalRoomsBooked { get; set; }
+        public int TotalRoomCount { get; set; }
+        public List<Booking> Booking = new List<Booking>();
 
-        public Guest(int id, string name, string address, string email, string phoneNumber, string password) : base(id, name, address, email, phoneNumber, password)
+        public Guest(string name, string address, string email, int phoneNumber, string password) : 
+            base(name, address, email, phoneNumber, password)
         {
-            TotalRoomsBooked = 0;
+
         }
-
-        public void BookRoom(Hotel hotel, Room room, DateTime startDate, DateTime endDate)
+        public void DisplayBookings()
         {
-            
-            if (hotel.GetAvailableRooms(startDate, endDate).Contains(room))
+            Console.WriteLine($"\nList of Reservations of {Name}:");
+            foreach (Booking booking in Booking)
             {
-                room.IsAvailable = false;
-                TotalRoomsBooked++;
-                Console.WriteLine("Your room reservation is successful!"); 
-            }
-            else
-            {
-                Console.WriteLine("Room unavailable for selected dates.");
+                Console.WriteLine($"{booking.ReservationNumber} Start Time: {booking.CheckIn}, End Time {booking.CheckOut}, Duration: {booking.Duration}, Total: {booking.Price} ");
             }
         }
+
     }
+
 }

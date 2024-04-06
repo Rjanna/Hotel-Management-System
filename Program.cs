@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-na
-internal class Program
+namespace HotelManagementSystem
+{
+    internal class Program
     {
         static void Main(string[] args)
         {
-            List<HotelRoom> yananRooms = new List<HotelRoom>();
+            List<HotelRoom> ewankonaRooms = new List<HotelRoom>();
             HotelRoom room1 = new HotelRoom(101, RoomStyle.Twin, 1500);
             HotelRoom room2 = new HotelRoom(102, RoomStyle.King, 3000);
             yananRooms.Add(room1);
@@ -50,3 +51,5 @@ internal class Program
             Console.WriteLine(terry.TotalRoomCount);
         }
     }
+}
+

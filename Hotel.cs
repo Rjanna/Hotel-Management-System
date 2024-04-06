@@ -8,30 +8,37 @@ namespace HotelSystem
 {
     public class Hotel
     {
+        private List<HotelRoom> _rooms;
         public string Name { get; set; }
-        public string Location { get; set; }
-        public List<Room> Rooms { get; set; }
-
-        public Hotel(string name, string location)
+        public string Address { get; set; }
+        public void DisplayAvailableRooms()
         {
-            Name = name;
-            Location = location;
-            Rooms = new List<Room>();
-        }
-
-        public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)
-        {
-            List<Room> availableRooms = new List<Room>();
-            foreach (Room room in Rooms)
+            Console.WriteLine($"\n{Name} - Available Rooms");
+            foreach (HotelRoom room in _rooms)
             {
-                if (room.IsAvailable && !IsRoomBooked(room, startDate, endDate))
+                if (!room.IsOccupied)
                 {
-                    availableRooms.Add(room);
+                    Console.WriteLine($"Room {room.RoomNumber}, Style: {room.Style}, Price: {room.Price}" );
                 }
             }
-            return availableRooms;
         }
+        public void DisplayBookedRooms()
+        {
+            Console.WriteLine($"\n{Name} - Booked Rooms");
+            foreach (HotelRoom room in _rooms)
+            {
+                if (room.IsOccupied)
+                {
+                    Console.WriteLine($"Room {room.RoomNumber}, Style: {room.Style}, Price: {room.Price}");
+                }
+            }
+        }
+        public Hotel(string name, string address, List<HotelRoom> rooms)
+        {
 
-        private bool IsRoomBooked(Room room, DateTime startDate, DateTime endDate) => false;
+            Name = name;
+            Address = address;
+            _rooms = rooms;
+        }
     }
 }

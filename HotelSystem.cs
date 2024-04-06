@@ -9,48 +9,43 @@ namespace HotelManagementSystem
 {
     public class HotelSystem
     {
-        private List<Hotel> _hotels = new List<Hotel>();
-
+        private List<Booking> _allBookings = new List<Booking>();
+        private List<Hotel> _allHotels = new List<Hotel>();
+        private List<User> _allUsers = new List<User>();
         public void AddHotel(Hotel hotel)
         {
-            _hotels.Add(hotel);
+            _allHotels.Add(hotel);
         }
-
-        public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)
+        public void RegisterUser(User user)
         {
-            return _hotels.SelectMany(h => h.GetAvailableRooms(startDate, endDate)).ToList();
+            _allUsers.Add(user);
         }
-
-        public void BookRoom(Guest guest, Hotel hotel, Room room, DateTime startDate, DateTime endDate)
+        public void DisplayBookingDetails(int reservationNumber)
         {
-            guest.BookRoom(hotel, room, startDate, endDate);
+            Console.WriteLine($"\nDetails of Reservation {reservationNumber}:");
+            foreach (var booking in _allBookings)
+            {
+                if (booking.ReservationNumber == reservationNumber)
+                {
+                    Console.WriteLine($"{booking.ReservationNumber} Start Time: {booking.CheckIn}, End Time {booking.CheckOut}, Duration: {booking.Duration}, Total: {booking.Price} ");
+                }
+            }
         }
-
-       
-    }
-
-    public class Hotel
-    {
-        public string Name { get; set; }
-        public string Location { get; set; }
-        public List<Room> Rooms { get; set; }
-
-        public Hotel(string name, string location)
+        public Booking CreateBooking(Hotel hotel, HotelRoom room, Guest guest, DateTime checkInDate, DateTime checkOutDate)
         {
-            Name = name;
-            Location = location;
-            Rooms = new List<Room>();
+            guest.TotalRoomCount++;
+            var booking = new Booking(checkInDate, checkOutDate, room);
+            guest.Booking.Add(booking);
+            _allBookings.Add(booking);
+            return booking;
         }
-
-        public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)
+        public void DisplayHotels()
         {
-            return Rooms.Where(room => room.IsAvailable && !IsRoomBooked(room, startDate, endDate)).ToList();
-        }
-
-        private bool IsRoomBooked(Room room, DateTime startDate, DateTime endDate)
-        {
-
-            return false;
+            Console.WriteLine("List of Hotels:");
+            foreach (var hotel in _allHotels)
+            {
+                Console.WriteLine(hotel.Name +", "+ hotel.Address);
+            }
         }
     }
 }

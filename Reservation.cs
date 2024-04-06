@@ -10,10 +10,10 @@ namespace HotelSystem
     public class Reservation
     {
         private static in reservationCounter=1234567890;
-        public int ReservationNumber { get; }
+        public int ReservationNumber { get; private set; }
         public Guest Guest { get; set; }
         public Hotel Hotel { get; set; }
-        public Room Room { get; }
+        public Room Room { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int DurationInDays { get; set; }

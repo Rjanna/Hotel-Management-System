@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace HotelManagementSystem
 {
-    public class Receptionist : User
+    public class Receptionist: User
     {
-        public Receptionist(int id, string name, string address, string email, string phoneNumber, string password) : base(id, name, address, email, phoneNumber, password)
+        public Receptionist(string name, string address, string email, int phoneNumber, string password) : 
+            base(name, address, email, phoneNumber, password)
         {
+        }
+        public void BookReservation(Guest guest, Booking booking)
+        {
+            guest.TotalRoomCount++;
+            guest.Booking.Add(booking);
         }
     }
 }
